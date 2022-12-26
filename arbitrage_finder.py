@@ -4,7 +4,7 @@ from dto import BALANCE_DTO, ARBITRAGE_DATA_DTO
 class Arbitrage:
     def __init__(self):
         self.parser_object = parser.Parser()
-        self.threshold = 0
+        self.threshold = 0.0
         self.balance = BALANCE_DTO
         self.arbitrage_history = ARBITRAGE_DATA_DTO
         
@@ -31,7 +31,7 @@ class Arbitrage:
                 
         diff = (self.trades['max_bid']['value'] / self.trades['min_ask']['value'] - 1) * 100
         diffabs = self.trades['max_bid']['value'] - self.trades['min_ask']['value']
-        if diffabs > self.threshold:
+        if diff > self.threshold:
             self.arbitrage_history['Time'].append(self.parser_object.data['Time'][-1])
             
             self.arbitrage_history['buy_price'].append(self.trades['min_ask']['value'])
